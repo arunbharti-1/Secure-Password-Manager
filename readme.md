@@ -1,6 +1,6 @@
 # Secure Password Manager
 
-A secure, local-only browser extension for managing passwords. All data is encrypted using AES-256-GCM and stored locally in your browser, ensuring your passwords never leave your device.
+A privacy-first, local-only browser extension for managing passwords. Everything is encrypted on your device with AES-256-GCM and stored in IndexedDB—your data never leaves your browser.
 
 ## Quick Setup
 
@@ -23,7 +23,7 @@ The extension should now appear in your browser toolbar!
 
 - **Frontend**: HTML, CSS (Tailwind CSS), JavaScript
 - **Storage**: IndexedDB (Local Storage)
-- **Encryption**: 
+- **Crypto**: 
   - AES-256-GCM for data encryption
   - PBKDF2 for key derivation
   - Secure random number generation for cryptographic operations
@@ -31,17 +31,16 @@ The extension should now appear in your browser toolbar!
 ## Features
 
 ### Security
-- Strong encryption using AES-256-GCM
+- AES-256-GCM encryption
 - Password-based key derivation using PBKDF2 (250,000 iterations)
 - Auto-lock after 15 minutes of inactivity
-- Local-only storage - no cloud sync or external servers
-
+- No cloud sync, no external servers—zero plaintext at rest
 ### Password Management
-- Store website credentials securely
-- Search and filter saved passwords
+- Securely store website credentials
+- Fast search & filter
 - Auto-fill website URL from active tab
 - Copy passwords to clipboard
-- Delete credentials
+- Edit/Delete entries
 
 ### Password Generator
 - Generate strong passwords with customizable options:
@@ -60,8 +59,7 @@ The extension should now appear in your browser toolbar!
 
 ## Security Model
 
-- All sensitive data is encrypted using AES-256-GCM before storage
-- Master password never stored, only used for key derivation
-- Encryption/decryption happens locally in memory
-- Auto-lock feature prevents unauthorized access
-- Uses browser's Crypto API for secure random number generation
+- Before storage: Each item is encrypted with AES-256-GCM using a fresh random IV; the auth tag is verified on decrypt.
+- Master password: Never stored. A unique salt + PBKDF2-HMAC-SHA-256 (250k) derive your vault key locally.
+- Runtime: Encryption/decryption happens in memory via the Web Crypto API.
+- Randomness: Salts/IVs and generator output use crypto.getRandomValues.
