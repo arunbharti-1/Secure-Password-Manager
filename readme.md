@@ -1,12 +1,12 @@
-# Secure Vault Password Manager
+# Secure Password Manager
 
 A secure, local-only browser extension for managing passwords. All data is encrypted using AES-256-GCM and stored locally in your browser, ensuring your passwords never leave your device.
 
-## 🚀 Quick Setup
+## Quick Setup
 
 1. Clone or download this repository:
 ```bash
-git clone https://github.com/yourusername/secure-vault-pm.git
+https://github.com/arunbharti-1/Secure-Password-Manager.git
 ```
 
 2. Open Chrome/Edge browser and navigate to:
@@ -19,7 +19,7 @@ git clone https://github.com/yourusername/secure-vault-pm.git
 
 The extension should now appear in your browser toolbar!
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: HTML, CSS (Tailwind CSS), JavaScript
 - **Storage**: IndexedDB (Local Storage)
@@ -28,7 +28,7 @@ The extension should now appear in your browser toolbar!
   - PBKDF2 for key derivation
   - Secure random number generation for cryptographic operations
 
-## ✨ Features
+## Features
 
 ### Security
 - Strong encryption using AES-256-GCM
@@ -58,7 +58,7 @@ The extension should now appear in your browser toolbar!
 - Toast notifications for actions
 - Tab-based navigation
 
-## 🔒 Security Model
+## Security Model
 
 - All sensitive data is encrypted using AES-256-GCM before storage
 - Master password never stored, only used for key derivation
