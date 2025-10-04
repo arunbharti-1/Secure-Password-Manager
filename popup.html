@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Vault</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body class="bg-gray-800 text-white w-96 p-4">
+
+    <!-- Locked View -->
+    <div id="locked-view" class="space-y-4">
+        <h1 class="text-2xl font-bold text-center text-cyan-400">Secure Vault</h1>
+        <div id="error-message" class="hidden text-red-400 text-center p-2 rounded-md bg-red-900 bg-opacity-50"></div>
+        <div>
+            <label for="master-password" class="block text-sm font-medium text-gray-300">Master Password</label>
+            <input type="password" id="master-password" class="mt-1 block w-full bg-gray-700 border border-gray-600 rounded-md shadow-sm py-2 px-3 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
+        </div>
+        <button id="unlock-button" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Unlock</button>
+        <p class="text-xs text-gray-400 text-center">First time? Enter a password to create your vault.</p>
+    </div>
+
+    <!-- Unlocked View -->
+    <div id="unlocked-view" class="hidden">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-bold text-cyan-400">Vault</h1>
+            <div class="flex gap-2">
+                <button id="theme-toggle" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-1 px-3 rounded-md text-sm transition duration-300">🌙</button>
+                <button id="lock-button" class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded-md text-sm transition duration-300">Lock</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-4">
+            <button id="tab-credentials" class="tab-button active">Credentials</button>
+            <button id="tab-add-new" class="tab-button">Add New</button>
+            <button id="tab-generator" class="tab-button">Generator</button>
+        </div>
+
+        <!-- Credentials Tab Content -->
+        <div id="content-credentials">
+             <input type="text" id="search-input" placeholder="Search..." class="w-full bg-gray-700 border border-gray-600 rounded-md py-2 px-3 mb-4 text-white focus:outline-none focus:ring-cyan-500 focus:border-cyan-500">
+            <div id="credentials-list" class="space-y-2 max-h-64 overflow-y-auto pr-2">
+                <!-- Credentials will be injected here -->
+            </div>
+             <p id="empty-vault-message" class="text-center text-gray-400 mt-8 hidden">Your vault is empty. Add a new credential to get started.</p>
+        </div>
+
+
+        <!-- Add New Tab Content -->
+        <div id="content-add-new" class="hidden space-y-3">
+             <h2 class="text-xl font-semibold">Add New Credential</h2>
+            <div>
+                <label for="site-name" class="block text-sm">Website</label>
+                <input type="text" id="site-name" class="form-input">
+            </div>
+            <div>
+                <label for="username" class="block text-sm">Username</label>
+                <input type="text" id="username" class="form-input">
+            </div>
+            <div>
+                <label for="password" class="block text-sm">Password</label>
+                <input type="password" id="password" class="form-input">
+            </div>
+            <button id="save-button" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Save</button>
+        </div>
+
+        <!-- Generator Tab Content -->
+        <div id="content-generator" class="hidden space-y-4">
+            <h2 class="text-xl font-semibold">Password Generator</h2>
+            <div class="relative">
+                <input type="text" id="generated-password" readonly class="w-full bg-gray-900 border border-gray-600 rounded-md py-2 px-3 pr-10 text-cyan-300 font-mono">
+                <button id="copy-generated-btn" class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-white">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 012-2h4a2 2 0 012 2v0M8 5a2 2 0 00-2 2v0m12 4h-4a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v4z"></path></svg>
+                </button>
+            </div>
+             <div class="flex items-center justify-between">
+                <label for="length-slider" class="text-sm">Length: <span id="length-value">16</span></label>
+                <input id="length-slider" type="range" min="8" max="64" value="16" class="w-48">
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+                <div class="flex items-center"><input id="uppercase-check" type="checkbox" checked class="form-checkbox"><label for="uppercase-check" class="ml-2">Uppercase</label></div>
+                <div class="flex items-center"><input id="lowercase-check" type="checkbox" checked class="form-checkbox"><label for="lowercase-check" class="ml-2">Lowercase</label></div>
+                <div class="flex items-center"><input id="numbers-check" type="checkbox" checked class="form-checkbox"><label for="numbers-check" class="ml-2">Numbers</label></div>
+                <div class="flex items-center"><input id="symbols-check" type="checkbox" class="form-checkbox"><label for="symbols-check" class="ml-2">Symbols</label></div>
+            </div>
+            <button id="generate-button" class="w-full bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md transition duration-300">Generate</button>
+        </div>
+
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="hidden fixed bottom-4 right-4 bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg">
+        Text copied to clipboard!
+    </div>
+
+
+    <script src="popup.js"></script>
+</body>
+</html>
+
+
